@@ -1,0 +1,7 @@
+python_version >= 3.10,<3.13
+scikit-learn==1.7.0
+joblib
+streamlit
+pandas
+numpy
+scipy
