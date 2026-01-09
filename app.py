@@ -8,7 +8,9 @@ from scipy.sparse import hstack
 # -----------------------------
 # Load models from HOME directory
 # -----------------------------
-MODEL_DIR = "models"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = os.path.join(BASE_DIR, "models")
+
 
 tfidf = joblib.load(os.path.join(MODEL_DIR, "tfidf.pkl"))
 svm_clf = joblib.load(os.path.join(MODEL_DIR, "svm_classifier.pkl"))
