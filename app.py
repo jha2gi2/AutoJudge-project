@@ -8,14 +8,7 @@ from scipy.sparse import hstack
 # -----------------------------
 # Load models from HOME directory
 # -----------------------------
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_DIR = os.path.join(BASE_DIR, "models")
-
-def safe_load(path, name):
-    if not os.path.exists(path):
-        st.error(f"Missing model file: {name}")
-        st.stop()
-    return joblib.load(path)
+MODEL_DIR = "models"
 
 tfidf = joblib.load(os.path.join(MODEL_DIR, "tfidf.pkl"))
 svm_clf = joblib.load(os.path.join(MODEL_DIR, "svm_classifier.pkl"))
@@ -35,17 +28,15 @@ def count_math_symbols(text):
 
 def build_features(text):
     tfidf_features = tfidf.transform([text])
-
     text_len = len(text)
     math_cnt = count_math_symbols(text)
 
-    extra_features = np.array([[text_len, math_cnt]],dtype=np.float64)
+    extra_features = np.array([[text_len, math_cnt]])
 
     if scaler is not None:
         extra_features = scaler.transform(extra_features)
 
     return hstack([tfidf_features, extra_features])
-
 
 
 # -----------------------------
